@@ -10,7 +10,7 @@ import java.util.List;
 public class Controller {
 
     @Autowired
-    StudentRepository repository;
+    StudentService service;
 
     static List<Student> studentList = new ArrayList<>();
 
@@ -24,14 +24,16 @@ public class Controller {
     @PostMapping("/student")
     public void addStudent(@RequestBody Student student){
 //        studentList.add(student);
-        repository.save(student);
+//        repository.save(student);
+        service.addStudent(student);
 
     }
 
     @GetMapping("/student")
     public List<Student> getStudentList(){
 //        return studentList;
-        return repository.findAll();
+//        return repository.findAll();
+        return service.getStudentList();
     }
 
     @DeleteMapping("/student/{name}")
@@ -45,7 +47,9 @@ public class Controller {
 //            }
 //        }
 
-        repository.deleteStudentByName(name);
+//        repository.deleteStudentByName(name);
+
+        service.deleteStudent(name);
 
     }
 
@@ -61,7 +65,8 @@ public class Controller {
 //        }
 //        return null;
 
-        return repository.findStudentByName(name);
+//        return repository.findStudentByName(name);
+        return service.getStudentbyName(name);
     }
 
 
@@ -75,11 +80,13 @@ public class Controller {
 //
 //        return shuma/studentList.size();
 
-        return studentList
-                .stream()
-                .mapToInt(s-> s.getAge())
-                .average()
-                .orElse(0.0);
+//        return studentList
+//                .stream()
+//                .mapToInt(s-> s.getAge())
+//                .average()
+//                .orElse(0.0);
+
+        return service.getAverage();
 
     }
 
